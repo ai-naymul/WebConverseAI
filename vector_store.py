@@ -20,5 +20,5 @@ class VectorStore:
         text_splitter = RecursiveCharacterTextSplitter()
         document_chunks = text_splitter.split_documents(documents=document)
 
-        vector_store = Chroma.from_documents(document_chunks, embedding=GoogleGenerativeAIEmbeddings(google_api_key=GOOGLE_API_KEY))
+        vector_store = Chroma.from_documents(document_chunks, embedding=GoogleGenerativeAIEmbeddings(google_api_key=GOOGLE_API_KEY, model='models/embedding-001'))
         return vector_store

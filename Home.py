@@ -3,14 +3,15 @@ from langchain_core.messages import AIMessage,HumanMessage
 
 from vector_store import VectorStore
 from retriever_chain import RetrieverChain
+
 vector = VectorStore
 
-retriever_chain = RetrieverChain()
+rtr_chain = RetrieverChain()
 
 
 def get_response(user_input):
-    retriever_chain = retriever_chain.get_context_retriever_chain(st.session_state.vector_store)
-    conversation_rag_chain = retriever_chain.get_conversational_rag_chain(retriever_chain)
+    rter = rtr_chain.get_context_retriever_chain(st.session_state.vector_store)
+    conversation_rag_chain = rtr_chain.get_conversational_rag_chain(rter)
     
     response = conversation_rag_chain.invoke({
         "chat_history": st.session_state.chat_history,
@@ -26,7 +27,7 @@ st.title("Chat with Websites: An AI-Powered Conversational Interface")
 st.subheader('Website URL')
 website_url = st.text_input('Enter a website url')
 
-if website_url is not None:
+if website_url:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [
             AIMessage(content="Hello, I am a bot. How can I help you?"),
@@ -50,3 +51,5 @@ if website_url is not None:
         elif isinstance(message, HumanMessage):
             with st.chat_message("Human"):
                 st.write(message.content)
+else:
+    st.write('There is a problem in the code')
