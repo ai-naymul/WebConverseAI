@@ -10,7 +10,7 @@ rtr_chain = RetrieverChain()
 
 
 def get_response(user_input):
-    rter = rtr_chain.get_context_retriever_chain(st.session_state.vector_store)
+    rter = rtr_chain.get_context_retriever_chain(vector_store=st.session_state.vector_store)
     conversation_rag_chain = rtr_chain.get_conversational_rag_chain(rter)
     
     response = conversation_rag_chain.invoke({
@@ -25,8 +25,12 @@ st.set_page_config(page_title="WebConverseAI - Chat with Websites: An AI-Powered
 st.title("Chat with Websites: An AI-Powered Conversational Interface")
 
 st.subheader('Website URL')
-website_url = st.text_input('Enter a website url')
-
+text_input_container = st.empty()
+website_url = text_input_container.text_input("Enter a website url")
+# website_url = st.text_input('')
+if website_url != "":
+    text_input_container.empty()
+    st.info(website_url)
 if website_url:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [
@@ -51,5 +55,3 @@ if website_url:
         elif isinstance(message, HumanMessage):
             with st.chat_message("Human"):
                 st.write(message.content)
-else:
-    st.write('There is a problem in the code')

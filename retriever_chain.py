@@ -12,23 +12,21 @@ class RetrieverChain:
     def __init__(self) -> None:
         pass
 
-    def get_context_retriever_chain(vector_store):
-        llm = GoogleGenerativeAI(GOOGLE_API_KEY)
+    def get_context_retriever_chain(self, vector_store):
+        llm = GoogleGenerativeAI(google_api_key=GOOGLE_API_KEY, model='gemini-pro')
         retriever = vector_store.as_retriever()
-        prompt = ChatPromptTemplate.from_messages(
-            [
-                MessagesPlaceholder(variable_name='chat_history'),
-                ('user', '{inputs}'),
-                ("user", "Given the above conversation, generate a search query to look up in order to get information relevant to the conversation")
-            ]
-        )
+        prompt = ChatPromptTemplate.from_messages([
+      MessagesPlaceholder(variable_name="chat_history"),
+      ("user", "{input}"),
+      ("user", "Given the above conversation, generate a search query to look up in order to get information relevant to the conversation")
+    ])
 
         retriever_chain = create_history_aware_retriever(llm, retriever, prompt)
 
         return retriever_chain
 
-    def get_conversational_rag_chain(retriever_chain):
-        llm = GoogleGenerativeAI()
+    def get_conversational_rag_chain(self, retriever_chain):
+        llm = GoogleGenerativeAI(google_api_key=GOOGLE_API_KEY, model='gemini-pro')
         prompt = ChatPromptTemplate.from_messages([
             ("system", "Answer the user's questions based on the below context:\n\n{context}"),
             MessagesPlaceholder(variable_name="chat_history"),
