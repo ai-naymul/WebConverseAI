@@ -4,6 +4,7 @@ langchain_community
 langchain
 beautifulsoup4
 python-dotenv
-chromadb>=0.4.0
+pysqlite3-binary
+chromadb
 langchain_chroma
 langchain-google-genai
