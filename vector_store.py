@@ -5,6 +5,10 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import os
 from dotenv import load_dotenv
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
