@@ -4,6 +4,6 @@ langchain_community
 langchain
 beautifulsoup4
 python-dotenv
-chromadb==0.4.0
+chromadb
 langchain_chroma
 langchain-google-genai
