@@ -4,6 +4,12 @@ from langchain_core.messages import AIMessage,HumanMessage
 from vector_store import VectorStore
 from retriever_chain import RetrieverChain
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+
+
 vector = VectorStore
 
 rtr_chain = RetrieverChain()
