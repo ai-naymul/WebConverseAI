@@ -1,10 +1,10 @@
 streamlit
-langchain_core
-langchain_community
+langchain-core
+langchain-community
 langchain
 beautifulsoup4
 python-dotenv
 pysqlite3-binary
 chromadb
-langchain_chroma
+langchain-chroma
 langchain-google-genai
